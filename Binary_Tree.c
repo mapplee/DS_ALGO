@@ -73,11 +73,29 @@ void post_order(Node *node)
 	}
 	printf("%d ",node->data);
 }
+void in_oreder(Node *node)
+{
+	if(node->left!=NULL)
+	{
+		in_oreder(node->left);
+	}
+	printf("%d ",node->data);
+	if(node->right!=NULL)
+	{
+		in_oreder(node->right);
+	}
+}
 int main(){
 	Node *root=create_tree();
 	//printf("%d\n",root->data);
-	//pre_order(root);
+	printf("Pre Order Travarse: ");
+	pre_order(root);
+	printf("\n");
+	printf("Post Order Travarse: ");
 	post_order(root);
+	printf("\n");
+	printf("In Order Travarse: ");
+	in_oreder(root);
 	printf("\n");
 	return 0;
 }
