@@ -121,6 +121,48 @@ void post_order(Node *root)
 	printf("%d ",root->data);
 
 }
+Node *bst_search(Node *root,int item)
+{
+
+
+	Node *node=root;
+	while(node!=NULL)
+	{
+		if(node->data==item)
+		{
+			return node;
+		}
+		if(node->data > item)
+		node=node->left;
+		else
+		node=node->right;
+	}
+	return node;
+
+
+//########Search with recursive############
+//	Node *node=root;
+//	if(node!=NULL)
+//		{
+//			if(item ==node->data)
+//			return node;
+//
+//			if(node->data > item){
+//				node=node->left;
+//				bst_search(node,item);
+//			}
+//
+//			else
+//			{
+//				node=node->right;
+//				bst_search(node,item);
+//			}
+//		}
+//	else
+//		return node;
+
+
+}
 int main()
 {
 	Node *root=create_bst();
@@ -135,6 +177,13 @@ int main()
 	printf("Traverse with in order(L-ROOT-R): ");
 	in_oreder(root);
 	printf("\n");
-
+	Node *node;
+	node=bst_search(root,3);
+	if(node!=NULL)
+	{
+		printf("Found the data %d \n",node->data);
+	}
+	else
+	printf("Item not found \n");
 	return 0;
 }
