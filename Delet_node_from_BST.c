@@ -80,8 +80,8 @@ Node *create_bst()
 {
 	Node *root,*node;
 	root=create_node(10);
-	int arr[]={5,17,3,7,12,19,1,4};
-	for(int i=0;i<8;i++)
+	int arr[]={5,17,3,7,12,19,1,4,13};
+	for(int i=0;i<9;i++)
 	{
 		node=create_node(arr[i]);
 		root=insert_bst(root,node);
@@ -203,7 +203,14 @@ Node *bst_delet(Node *root ,Node *node)
 		root=bst_transplant(root,node,node->left);
 	}
 	else{
-		printf("The node has two child\n");
+		smallest_node=bst_minimum(node->right);
+		if(node != smallest_node->parent)
+		{
+			root=bst_transplant(root,smallest_node,smallest_node->right);
+			add_right_child(smallest_node,node->right);
+		}
+		root=bst_transplant(root,node,smallest_node);
+		add_left_child(smallest_node,node->left);
 	}
 
 	free(node);
@@ -214,34 +221,47 @@ Node *bst_delet(Node *root ,Node *node)
 int main()
 {
 	Node *root=create_bst();
-
 	printf("%d \n",root->data);
+
 	printf("Traverse with post order(L-R-ROOT): ");
 	post_order(root);
 	printf("\n");
+
+
 	printf("Traverse with pre order(ROOT-L-R): ");
 	pre_order(root);
 	printf("\n");
+
+
 	printf("Traverse with in order(L-ROOT-R): ");
 	in_oreder(root);
 	printf("\n");
+
+
 	printf("---------------\n");
 	printf("Before the deletion : ");
 	in_oreder(root);
 	printf("\n");
+
+
 	Node *node;
-	node=bst_search(root,10);
-	root=bst_delet(root,node);
-	printf("After the deletion : ");
-	in_oreder(root);
-	printf("\n");
-	node=bst_search(root,4);
-	if(node!=NULL)
-	{
-		printf("Found the data %d \n",node->data);
-	}
+	node=bst_search(root,5);
+	if(node!=NULL){
+		root=bst_delet(root,node);
+		printf("After the deletion : ");
+		in_oreder(root);
+		printf("\n");
+		printf("Finding Node(5)  after the delet \n");
+		node=bst_search(root,5);
+		if(node!=NULL)
+		{
+			printf("Found the data %d \n",node->data);
+		}
+		else
+		printf("Item not found \n");
+		}
 	else
-	printf("Item not found \n");
+	printf("Nothing deleted\n");
 	return 0;
 }
 ///self-connection-strength
