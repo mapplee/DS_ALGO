@@ -42,8 +42,6 @@ Node *append(Node *head, int item)
 	return head;
 }
 
-
-
 void print_linked_list(Node *head)
 {
 	Node *current_node=head;
@@ -55,6 +53,31 @@ void print_linked_list(Node *head)
 	}
 	printf("\n");
 }
+
+int count(Node  *head)
+{
+	Node *current_node;
+	current_node=head;
+	int count=0;
+	while(current_node!=NULL)
+	{
+		count++;
+		current_node=current_node->next;
+	}
+	return count;
+}
+
+Node *search(Node *head , int item)
+{
+	Node *current_node=head;
+	while(current_node != NULL)
+	{
+		if(current_node->data==item)
+			return current_node;
+		current_node=current_node->next;
+	}
+	return current_node;
+}
 int main()
 {
 	Node *head;
@@ -62,10 +85,23 @@ int main()
 	//Node *n1;
 	//n1=create_node(5,NULL);
 	print_linked_list(head);
+	printf("Element of link list : %d\n",count(head));
 	head=prepend_node(head,20);
 	print_linked_list(head);
+	printf("Element of link list : %d\n",count(head));
 	head=append(head,30);
 	print_linked_list(head);
+	printf("Element of link list : %d\n",count(head));
+
+	int element;
+	printf("Search Item : ");
+	scanf("%d",&element);
+	Node *search_item;
+	search_item=search(head,element);
+	if(search_item!=NULL)
+		printf("Item %d found ",search_item->data);
+	else
+		printf("Item not found");
 //	head=prepend_node(head,20);
 //	print_linked_list(head);
 //	head=append(head,30);
